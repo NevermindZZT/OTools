@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddItemActivity">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Light"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <EditText
+                android:id="@+id/text_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:hint="有意义的事情"
+                android:background="@null"
+                android:maxLines="1"
+                android:textSize="24sp"
+                android:textColor="@color/textColorItemName"/>
+
+            <LinearLayout
+                android:id="@+id/date_choose"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:id="@+id/text_year"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@color/textColorStress"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:text=" 年 "
+                    android:textColor="@color/textColorItemName"/>
+
+                <TextView
+                    android:id="@+id/text_mouth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@color/textColorStress"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:text=" 月 "
+                    android:textColor="@color/textColorItemName"/>
+
+                <TextView
+                    android:id="@+id/text_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="@color/textColorStress"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:gravity="end"
+                    android:text=" 日 "
+                    android:textColor="@color/textColorItemName"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/type_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:textSize="24sp"
+                    android:text="纪念日"
+                    android:textColor="@color/textColorItemName"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</android.support.constraint.ConstraintLayout>
