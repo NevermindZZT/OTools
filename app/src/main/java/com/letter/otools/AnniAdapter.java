@@ -2,7 +2,6 @@ package com.letter.otools;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +16,14 @@ public class AnniAdapter extends RecyclerView.Adapter<AnniAdapter.ViewHolder> {
 
     private static final long MS_ONE_DAY = 86400000L;
 
+    private OnAnniItemClickListener onAnniItemClickListener;
+
     private Context mContext;
     private List<Anniversary> mAnniversaryList;
     private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        CardView cardView;
+        View anniView;
         TextView anniDate;
         TextView anniDays;
         TextView anniText;
@@ -30,7 +31,7 @@ public class AnniAdapter extends RecyclerView.Adapter<AnniAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView = (CardView) itemView;
+            anniView = itemView;
             anniDate = itemView.findViewById(R.id.anni_date);
             anniDays = itemView.findViewById(R.id.anni_days);
             anniText = itemView.findViewById(R.id.anni_text);
@@ -42,6 +43,10 @@ public class AnniAdapter extends RecyclerView.Adapter<AnniAdapter.ViewHolder> {
         mAnniversaryList = anniversaryList;
     }
 
+    public void setOnAnniItemClickListener (OnAnniItemClickListener onAnniItemClickListener) {
+        this.onAnniItemClickListener = onAnniItemClickListener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -49,7 +54,15 @@ public class AnniAdapter extends RecyclerView.Adapter<AnniAdapter.ViewHolder> {
             mContext = viewGroup.getContext();
         }
         View view = LayoutInflater.from(mContext).inflate(R.layout.anniversary_item, viewGroup, false);
-        return new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.anniView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                onAnniItemClickListener.onItemClick(position);
+            }
+        });
+        return holder;
     }
 
     @Override
@@ -81,4 +94,5 @@ public class AnniAdapter extends RecyclerView.Adapter<AnniAdapter.ViewHolder> {
     public int getItemCount() {
         return mAnniversaryList.size();
     }
+
 }

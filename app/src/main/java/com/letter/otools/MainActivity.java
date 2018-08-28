@@ -9,28 +9,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import org.litepal.LitePal;
 
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Anniversary[] anniversaries = {
-            new Anniversary(new Date().getTime() - 5461218546L, "第一个纪念日"),
-            new Anniversary(new Date().getTime(), "第二个纪念日"),
-            new Anniversary(new Date().getTime(), "第三个纪念日"),
-            new Anniversary(new Date().getTime(), "第四个纪念日"),
-            new Anniversary(new Date().getTime(), "第五个纪念日", Anniversary.ANNI_TYPE_EVERY_YEAR),
-            new Anniversary(new Date().getTime() + 9861218546L, "第六个纪念日", Anniversary.ANNI_TYPE_COUNT_DOWN),
-            new Anniversary(new Date().getTime(), "第七个纪念日", Anniversary.ANNI_TYPE_ONLY_ONCE),
-    };
-
     private AnniAdapter anniAdapter;
 
-    List<Anniversary> anniversaryList;// = Arrays.asList(anniversaries);
+    List<Anniversary> anniversaryList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new SpacesItemDecoration(1));
         anniAdapter = new AnniAdapter(anniversaryList);
+        anniAdapter.setOnAnniItemClickListener(new OnAnniItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(MainActivity.this, AnniversaryActivity.class);
+                intent.putExtra("anniData", anniversaryList.get(position));
+                startActivityForResult(intent, 1);
+            }
+        });
         recyclerView.setAdapter(anniAdapter);
 
         FloatingActionButton floatingActionButton = findViewById(R.id.fab);
@@ -53,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+                intent.putExtra("editType", AddItemActivity.ITEM_ADD);
                 startActivityForResult(intent, 1);
             }
         });

@@ -23,6 +23,11 @@ import java.util.Date;
 
 public class AddItemActivity extends AppCompatActivity {
 
+    public static final int ITEM_ADD = 0;
+    public static final int ITEM_EDIT = 1;
+
+    private int editType;
+
     private SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
     private Date selectDate = new Date();
 
@@ -44,7 +49,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private TextView textType;
 
-    private Anniversary anniversary = new Anniversary();
+    private Anniversary anniversary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,16 @@ public class AddItemActivity extends AppCompatActivity {
             actionBar.setTitle("");
         }
 
+        Intent intent = getIntent();
+        editType = intent.getIntExtra("editType", ITEM_ADD);
+        if (editType == ITEM_EDIT) {
+            anniversary = (Anniversary) intent.getSerializableExtra("anniData");
+        } else {
+            anniversary = new Anniversary();
+        }
+
         editTextName = findViewById(R.id.text_name);
+        editTextName.setText(anniversary.getText());
 
         dateChoose = findViewById(R.id.date_choose);
         freshDate(anniversary.getTime());
@@ -89,6 +103,7 @@ public class AddItemActivity extends AppCompatActivity {
         });
 
         textType = findViewById(R.id.type);
+        textType.setText(Anniversary.typeText[anniversary.getType()]);
 
         typeDialog = new AlertDialog.Builder(this).setTitle("纪念日类型")
                 .setItems(Anniversary.typeText, new DialogInterface.OnClickListener() {
@@ -127,6 +142,10 @@ public class AddItemActivity extends AppCompatActivity {
 
             case R.id.save:
                 EditText editText = findViewById(R.id.text_name);
+                if (editText.getText().toString().equals("")) {
+                    Toast.makeText(AddItemActivity.this, "纪念日内容不能为空", Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 anniversary.setText(editText.getText().toString());
                 anniversary.save();
                 Toast.makeText(AddItemActivity.this, "保存成功", Toast.LENGTH_SHORT).show();

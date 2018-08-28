@@ -2,9 +2,10 @@ package com.letter.otools;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Anniversary extends LitePalSupport {
+public class Anniversary extends LitePalSupport implements Serializable{
 
     public static final int ANNI_TYPE_ONLY_ONCE = 0;
     public static final int ANNI_TYPE_EVERY_YEAR = 1;
