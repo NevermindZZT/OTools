@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.litepal.LitePal;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -68,7 +70,7 @@ public class AddItemActivity extends AppCompatActivity {
         Intent intent = getIntent();
         editType = intent.getIntExtra("editType", ITEM_ADD);
         if (editType == ITEM_EDIT) {
-            anniversary = (Anniversary) intent.getSerializableExtra("anniData");
+            anniversary = LitePal.find(Anniversary.class, intent.getIntExtra("anniId", 0));
         } else {
             anniversary = new Anniversary();
         }
@@ -147,7 +149,11 @@ public class AddItemActivity extends AppCompatActivity {
                     break;
                 }
                 anniversary.setText(editText.getText().toString());
-                anniversary.save();
+                if (editType == ITEM_EDIT) {
+                    anniversary.update(anniversary.getId());
+                } else {
+                    anniversary.save();
+                }
                 Toast.makeText(AddItemActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK, intent);
                 finish();

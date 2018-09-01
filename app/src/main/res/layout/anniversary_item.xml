@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textColor="@color/textColorItemName"/>
 
             <TextView
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@color/textColorItemHint"/>
 
             <TextView
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@color/textColorItemHint"/>
 
         </LinearLayout>
@@ -59,7 +59,7 @@
                 android:layout_margin="5dp"
                 android:gravity="center_vertical|end"
                 android:textAlignment="viewEnd"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textColor="@color/textColorItemHint"/>
 
         </LinearLayout>

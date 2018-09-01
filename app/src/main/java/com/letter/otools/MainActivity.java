@@ -38,13 +38,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(int position) {
                 Intent intent = new Intent(MainActivity.this, AnniversaryActivity.class);
-                intent.putExtra("anniData", anniversaryList.get(position));
+                intent.putExtra("anniId", anniversaryList.get(position).getId());
                 startActivityForResult(intent, 1);
             }
         });
         recyclerView.setAdapter(anniAdapter);
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.fab);
+        final FloatingActionButton floatingActionButton = findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
     }
 
     @Override

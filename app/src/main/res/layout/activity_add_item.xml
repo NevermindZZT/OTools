@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -57,7 +57,8 @@
                     android:hint="有意义的事情"
                     android:background="@null"
                     android:maxLines="1"
-                    android:textSize="20sp"
+                    android:imeOptions="actionDone"
+                    android:textSize="18sp"
                     android:textColor="@color/textColorItemName"/>
 
             </LinearLayout>
@@ -67,8 +68,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -82,14 +83,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="@color/textColorStress"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="end"
                     android:text=" 年 "
                     android:textColor="@color/textColorItemName"/>
@@ -99,14 +100,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="@color/textColorStress"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="end"
                     android:text=" 月 "
                     android:textColor="@color/textColorItemName"/>
@@ -116,14 +117,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textColor="@color/textColorStress"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="end"
                     android:text=" 日 "
                     android:textColor="@color/textColorItemName"/>
@@ -135,8 +136,8 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -150,7 +151,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:text="纪念日"
                     android:textColor="@color/textColorItemName"/>
 

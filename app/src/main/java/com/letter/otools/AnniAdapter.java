@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class AnniAdapter extends RecyclerView.Adapter<AnniAdapter.ViewHolder> {
-
-    private static final long MS_ONE_DAY = 86400000L;
 
     private OnAnniItemClickListener onAnniItemClickListener;
 
@@ -68,26 +65,10 @@ public class AnniAdapter extends RecyclerView.Adapter<AnniAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Anniversary anniversary = mAnniversaryList.get(position);
-        long time = (new Date().getTime() - anniversary.getTime()) / MS_ONE_DAY;
+        holder.anniDays.setText(anniversary.getDaysText());
         holder.anniDate.setText(format.format(anniversary.getTime()));
-        switch (anniversary.getType()) {
-            case Anniversary.ANNI_TYPE_ONLY_ONCE:
-                holder.anniDays.setText(String.valueOf(time) + "天");
-                break;
-
-            case Anniversary.ANNI_TYPE_EVERY_YEAR:
-                holder.anniDays.setText(String.valueOf(time) + "天");
-                break;
-
-            case Anniversary.ANNI_TYPE_COUNT_DOWN:
-                holder.anniDays.setText("余" + String.valueOf(time) + "天");
-                break;
-
-            default:
-                break;
-        }
         holder.anniText.setText(anniversary.getText());
-        holder.anniType.setText(Anniversary.typeText[anniversary.getType()]);
+        holder.anniType.setText(anniversary.getTypeText());
     }
 
     @Override

@@ -25,47 +25,84 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:showDividers="middle|end"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:id="@+id/anni_text"
-                android:layout_width="match_parent"
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textSize="20sp"
-                android:textColor="@color/textColorItemName"/>
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="4dp">
 
-            <TextView
-                android:id="@+id/anni_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textSize="20sp"
-                android:textColor="@color/textColorItemName"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_centerInParent="true">
 
-            <TextView
-            android:id="@+id/anni_days"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="20sp"
-            android:textColor="@color/textColorItemName"/>
+                    <TextView
+                        android:id="@+id/anni_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textSize="28sp"
+                        android:textColor="@color/textColorItemName"/>
 
-            <TextView
-                android:id="@+id/anni_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:textSize="20sp"
-                android:textColor="@color/textColorItemName"/>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="15dp"
+                        android:src="@drawable/title_line"/>
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/anni_days"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="15dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:background="@drawable/time_back_circular"
+                        android:textAlignment="center"
+                        android:textSize="28sp"
+                        android:textColor="@color/textColorItemName"/>
+
+                    <TextView
+                        android:id="@+id/anni_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        android:textColor="@color/textColorItemHint"/>
+
+                    <TextView
+                        android:id="@+id/anni_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:textAlignment="center"
+                        android:textSize="16sp"
+                        android:textColor="@color/textColorItemHint"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </RelativeLayout>
+
 
     </android.support.design.widget.CoordinatorLayout>
 
