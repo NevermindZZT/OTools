@@ -23,6 +23,7 @@
                 android:id="@+id/anni_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 android:layout_margin="5dp"
                 android:textSize="18sp"
                 android:textColor="@color/textColorItemName"/>

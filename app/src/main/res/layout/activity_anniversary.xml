@@ -40,7 +40,7 @@
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="wrap_content"
+                    android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:layout_centerInParent="true">
@@ -53,11 +53,11 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:textAlignment="center"
-                        android:textSize="28sp"
+                        android:textSize="24sp"
                         android:textColor="@color/textColorItemName"/>
 
                     <ImageView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
@@ -74,7 +74,7 @@
                         android:background="@drawable/time_back_circular"
                         android:textAlignment="center"
                         android:textSize="28sp"
-                        android:textColor="@color/textColorItemName"/>
+                        android:textColor="@color/textColorAnniHint"/>
 
                     <TextView
                         android:id="@+id/anni_date"

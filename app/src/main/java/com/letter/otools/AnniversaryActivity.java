@@ -88,6 +88,8 @@ public class AnniversaryActivity extends AppCompatActivity {
                         LitePal.delete(Anniversary.class, anniversary.getId());
                         Intent intent = new Intent();
                         setResult(RESULT_OK, intent);
+                        Intent broadIntent  = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
+                        sendBroadcast(broadIntent);
                         Toast.makeText(AnniversaryActivity.this, "已删除", Toast.LENGTH_SHORT).show();
                         finish();
                     }

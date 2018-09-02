@@ -6,5 +6,6 @@
     <color name="textColorPrimary">#1a1a1a</color>
     <color name="textColorItemName">#1a1a1a</color>
     <color name="textColorItemHint">#999999</color>
+    <color name="textColorAnniHint">#333333</color>
     <color name="textColorStress">#2222AA</color>
 </resources>

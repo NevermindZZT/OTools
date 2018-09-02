@@ -67,6 +67,7 @@ public class Anniversary extends LitePalSupport implements Serializable{
     public String getDaysText() {
         String text = new String();
         Date now = new Date();
+        now.setTime((now.getTime() / MS_ONE_DAY) * MS_ONE_DAY);
         switch (type) {
             case ANNI_TYPE_ONLY_ONCE:
                 if (time <= now.getTime()) {
@@ -85,8 +86,10 @@ public class Anniversary extends LitePalSupport implements Serializable{
                 break;
 
             case ANNI_TYPE_COUNT_DOWN:
-                if (time <= now.getTime()) {
+                if (time < now.getTime()) {
                     text = "已过" + String.valueOf((now.getTime() - time) / MS_ONE_DAY) + "天";
+                } else if (time == now.getTime()) {
+                    text = "今天";
                 } else {
                     text = "余" + String.valueOf((time - now.getTime()) / MS_ONE_DAY) + "天";
                 }
@@ -98,9 +101,14 @@ public class Anniversary extends LitePalSupport implements Serializable{
         return text;
     }
 
+    public String getDateText () {
+        return new SimpleDateFormat("yyyy-MM-dd").format(time);
+    }
+
     public String getTypeText () {
         String text = new String();
         Date now = new Date();
+        now.setTime((now.getTime() / MS_ONE_DAY) * MS_ONE_DAY);
         switch (type) {
             case ANNI_TYPE_ONLY_ONCE:
                 text = typeText[type];
@@ -147,5 +155,60 @@ public class Anniversary extends LitePalSupport implements Serializable{
                 break;
         }
         return text;
+    }
+
+    public long getNextTime () {
+        long nextTime = -1;
+        Date now = new Date();
+        now.setTime((now.getTime() / MS_ONE_DAY) * MS_ONE_DAY);
+        switch (type) {
+            case ANNI_TYPE_ONLY_ONCE:
+                nextTime = -1;
+                break;
+
+            case ANNI_TYPE_EVERY_YEAR:
+                if (time <= now.getTime()) {
+                    int nowYear = Integer.parseInt(new SimpleDateFormat("yyyy").format(now.getTime()));
+
+                    int month = Integer.parseInt(new SimpleDateFormat("MM").format(time));
+                    int day = Integer.parseInt(new SimpleDateFormat("dd").format(time));
+
+                    Date tmpDate = new Date();
+                    try {
+                        tmpDate = new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(nowYear)
+                                + "-" + month + "-" + day);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if ((tmpDate.getTime() - now.getTime()) / MS_ONE_DAY >= 0) {
+                        nextTime = (tmpDate.getTime() - now.getTime()) / MS_ONE_DAY;
+                    } else {
+                        try {
+                            tmpDate = new SimpleDateFormat("yyyy-MM-dd").parse(String.valueOf(nowYear + 1)
+                                    + "-" + month + "-" + day);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        nextTime = (tmpDate.getTime() - now.getTime()) / MS_ONE_DAY;
+                    }
+                } else {
+                    nextTime = -1;
+                }
+                break;
+
+            case ANNI_TYPE_COUNT_DOWN:
+                if (time >= now.getTime()) {
+                    nextTime = (time - now.getTime()) / MS_ONE_DAY;
+                } else {
+                    nextTime = -1;
+                }
+                break;
+
+            default:
+                break;
+
+        }
+        return nextTime;
     }
 }
