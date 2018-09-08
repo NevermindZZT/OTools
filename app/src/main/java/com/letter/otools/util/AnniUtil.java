@@ -1,11 +1,14 @@
 package com.letter.otools.util;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.util.Log;
 
 import com.letter.otools.Anniversary;
 
 import org.litepal.LitePal;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class AnniUtil {
@@ -25,5 +28,31 @@ public class AnniUtil {
             }
         }
         return closestAnni;
+    }
+
+    public static List<Anniversary> getNotifyAnni () {
+        List<Anniversary> notifyAnni = new LinkedList<>();
+        List<Anniversary> anniversaryList = LitePal.findAll(Anniversary.class);
+        if (anniversaryList == null) {
+            return null;
+        } else {
+            for (Anniversary anni : anniversaryList) {
+                if (anni.getNextTime() == 0) {
+                    notifyAnni.add(anni);
+                }
+            }
+        }
+        return notifyAnni;
+    }
+
+    public static boolean isNotifyServiceRunning(Context context) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            Log.d("Service", service.service.getClassName());
+            if ("com.letter.otools.service.NotifyService".equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

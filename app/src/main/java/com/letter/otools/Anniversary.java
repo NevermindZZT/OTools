@@ -13,7 +13,8 @@ public class Anniversary extends LitePalSupport implements Serializable{
     public static final int ANNI_TYPE_EVERY_YEAR = 1;
     public static final int ANNI_TYPE_COUNT_DOWN = 2;
 
-    private static final  long MS_ONE_DAY = 86400000L;
+    private static final long MS_ONE_DAY = 86400000L;
+    private static final long MS_EIGHT_HOUR = 28800000L;
 
     public static final String[] typeText = {
             "纪念日",
@@ -27,7 +28,7 @@ public class Anniversary extends LitePalSupport implements Serializable{
     private int type;
 
     public Anniversary() {
-        this.time = (new Date().getTime() / MS_ONE_DAY) * MS_ONE_DAY;
+        this.time = ((new Date().getTime() + MS_EIGHT_HOUR) / MS_ONE_DAY) * MS_ONE_DAY;
         this.text = "";
         this.type = ANNI_TYPE_ONLY_ONCE;
     }
@@ -67,7 +68,7 @@ public class Anniversary extends LitePalSupport implements Serializable{
     public String getDaysText() {
         String text = new String();
         Date now = new Date();
-        now.setTime((now.getTime() / MS_ONE_DAY) * MS_ONE_DAY);
+        now.setTime(((new Date().getTime() + MS_EIGHT_HOUR) / MS_ONE_DAY) * MS_ONE_DAY);
         switch (type) {
             case ANNI_TYPE_ONLY_ONCE:
                 if (time <= now.getTime()) {
@@ -108,7 +109,7 @@ public class Anniversary extends LitePalSupport implements Serializable{
     public String getTypeText () {
         String text = new String();
         Date now = new Date();
-        now.setTime((now.getTime() / MS_ONE_DAY) * MS_ONE_DAY);
+        now.setTime(((new Date().getTime() + MS_EIGHT_HOUR) / MS_ONE_DAY) * MS_ONE_DAY);
         switch (type) {
             case ANNI_TYPE_ONLY_ONCE:
                 text = typeText[type];
@@ -160,7 +161,7 @@ public class Anniversary extends LitePalSupport implements Serializable{
     public long getNextTime () {
         long nextTime = -1;
         Date now = new Date();
-        now.setTime((now.getTime() / MS_ONE_DAY) * MS_ONE_DAY);
+        now.setTime(((new Date().getTime() + MS_EIGHT_HOUR) / MS_ONE_DAY) * MS_ONE_DAY);
         switch (type) {
             case ANNI_TYPE_ONLY_ONCE:
                 nextTime = -1;

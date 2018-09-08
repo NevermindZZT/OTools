@@ -1,6 +1,10 @@
 package com.letter.otools;
 
+import android.annotation.TargetApi;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +13,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
+import com.letter.otools.service.NotifyService;
+import com.letter.otools.util.AnniUtil;
 
 import org.litepal.LitePal;
 
@@ -54,8 +61,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String channelId = "anni";
+            String channelName = "纪念日提醒";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            createNotificationChannel(channelId, channelName, importance);
+        }
+
         Intent broadIntent  = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
         sendBroadcast(broadIntent);
+
+        if (AnniUtil.isNotifyServiceRunning(getApplicationContext()) != true) {
+            startService(new Intent(this, NotifyService.class));
+        }
     }
 
     @Override
@@ -72,5 +90,13 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private void createNotificationChannel(String channelId, String channelName, int importance) {
+        NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(channel);
     }
 }
