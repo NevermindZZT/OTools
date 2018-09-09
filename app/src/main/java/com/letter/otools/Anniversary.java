@@ -190,7 +190,7 @@ public class Anniversary extends LitePalSupport implements Serializable{
                 break;
 
             case ANNI_TYPE_COUNT_DOWN:
-                if (time <= now.getTimeInMillis()) {
+                if (time >= now.getTimeInMillis()) {
                     nextTime = (time - now.getTimeInMillis()) / MS_ONE_DAY;
                 } else {
                     nextTime = -1;

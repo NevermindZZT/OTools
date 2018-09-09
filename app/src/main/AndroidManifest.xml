@@ -33,10 +33,6 @@
         </receiver>
 
         <service
-            android:name=".service.AnniService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
             android:name=".service.NotifyService"
             android:enabled="true"
             android:exported="true"></service>

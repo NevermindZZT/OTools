@@ -1,12 +1,13 @@
 package com.letter.otools;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.letter.otools.service.AnniService;
 import com.letter.otools.util.AnniUtil;
 
 /**
@@ -16,8 +17,8 @@ public class AnniversaryWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
+        freshWidget(context);
 
-        context.startService(new Intent(context, AnniService.class));
 //        // Construct the RemoteViews object
 //        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.anniversary_widget);
 //        Anniversary anniversary = AnniUtil.getClosestAnni();
@@ -50,7 +51,26 @@ public class AnniversaryWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        context.startService(new Intent(context, AnniService.class));
+        freshWidget(context);
+    }
+
+    private static void freshWidget (Context context) {
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        ComponentName componentName = new ComponentName(context, AnniversaryWidget.class);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.anniversary_widget);
+        Anniversary anniversary = AnniUtil.getClosestAnni();
+        views.setTextViewText(R.id.anni_text, anniversary.getText());
+        views.setTextViewText(R.id.anni_date, anniversary.getDateText());
+        views.setTextViewText(R.id.anni_type, anniversary.getTypeText());
+        views.setTextViewText(R.id.anni_days, anniversary.getDaysText());
+        Intent intentAdd = new Intent(context, AddItemActivity.class);
+        PendingIntent pendingIntentAdd = PendingIntent.getActivity(context, 0, intentAdd, 0);
+        views.setOnClickPendingIntent(R.id.widget_add, pendingIntentAdd);
+        Intent intentItem =  new Intent(context, AnniversaryActivity.class);
+        intentItem.putExtra("anniId", anniversary.getId());
+        PendingIntent pendingIntentItem = PendingIntent.getActivity(context, 1, intentItem, PendingIntent.FLAG_CANCEL_CURRENT);
+        views.setOnClickPendingIntent(R.id.anni_widget_item, pendingIntentItem);
+        manager.updateAppWidget(componentName, views);
     }
 
 }

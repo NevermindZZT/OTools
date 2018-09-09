@@ -17,7 +17,7 @@ public class AnniUtil {
     public static Anniversary getClosestAnni () {
         Anniversary closestAnni;
         List<Anniversary> anniversaryList = LitePal.findAll(Anniversary.class);
-        if (anniversaryList == null) {
+        if (anniversaryList.size() == 0) {
             return new Anniversary();
         }
         closestAnni = anniversaryList.get(0);
