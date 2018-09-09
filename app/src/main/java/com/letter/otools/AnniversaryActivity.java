@@ -74,7 +74,7 @@ public class AnniversaryActivity extends AppCompatActivity {
             case android.R.id.home:
                 if (isEdited == 1) {
                     intent = new Intent();
-                    setResult(RESULT_CANCELED, intent);
+                    setResult(RESULT_OK, intent);
                 }
                 finish();
                 break;
@@ -120,7 +120,7 @@ public class AnniversaryActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (isEdited == 1) {
             Intent intent = new Intent();
-            setResult(RESULT_CANCELED, intent);
+            setResult(RESULT_OK, intent);
         }
         finish();
     }

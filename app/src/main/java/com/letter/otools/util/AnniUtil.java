@@ -8,6 +8,7 @@ import com.letter.otools.Anniversary;
 
 import org.litepal.LitePal;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,5 +55,12 @@ public class AnniUtil {
             }
         }
         return false;
+    }
+
+    public static void setTimeToZero (Calendar calendar) {
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
     }
 }

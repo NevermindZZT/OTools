@@ -47,8 +47,8 @@ public class NotifyService extends Service {
                         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intentItem, 0);
 
                         Notification notification = new Notification.Builder(getApplicationContext(), "anni")
-                                .setContentTitle("纪念日")
-                                .setContentText(anni.getText() + " - " + anni.getTypeText())
+                                .setContentTitle(anni.getTypeText())
+                                .setContentText(anni.getText() + "  日子到了哦")
                                 .setWhen(System.currentTimeMillis())
                                 .setSmallIcon(R.drawable.ic_notify)
                                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon))
@@ -67,7 +67,6 @@ public class NotifyService extends Service {
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(calendar.getTimeInMillis() + 8 * 60 * 60 * 1000);
         Log.d("Time", "onStartCommand: " + String.valueOf(calendar.get(Calendar.YEAR)) + "-"
                 + String.valueOf(calendar.get(Calendar.MONTH) + 1) + "-"
                 + String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + " "

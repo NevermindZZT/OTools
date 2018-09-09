@@ -19,9 +19,7 @@ import android.widget.Toast;
 
 import org.litepal.LitePal;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 public class AddItemActivity extends AppCompatActivity {
 
@@ -30,8 +28,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private int editType;
 
-    private SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
-    private Date selectDate = new Date();
+    private Calendar selectCalender = Calendar.getInstance();
 
     private TextView textYear;
     private TextView textMouth;
@@ -79,21 +76,16 @@ public class AddItemActivity extends AppCompatActivity {
         editTextName.setText(anniversary.getText());
 
         dateChoose = findViewById(R.id.date_choose);
-        freshDate(anniversary.getTime());
+        selectCalender.setTimeInMillis(anniversary.getTime());
+        freshDate(selectCalender);
 
         datePickerDialog = new DatePickerDialog(AddItemActivity.this);
         datePickerDialog.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int mouth, int day) {
-                try {
-                    selectDate = (format.parse(String.valueOf(year) + "年"
-                                                    + String.valueOf(mouth + 1) + "月"
-                                                    + String .valueOf(day) + "日"));
-                    anniversary.setTime(selectDate.getTime());
-                    freshDate(anniversary.getTime());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                selectCalender.set(year, mouth, day);
+                anniversary.setTime(selectCalender.getTimeInMillis());
+                freshDate(selectCalender);
             }
         });
 
@@ -135,7 +127,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent();;
+        Intent intent = new Intent();
         switch (item.getItemId()) {
             case android.R.id.home:
                 setResult(RESULT_CANCELED, intent);
@@ -174,14 +166,14 @@ public class AddItemActivity extends AppCompatActivity {
         finish();
     }
 
-    private void freshDate(long time) {
+    private void freshDate(Calendar calendar) {
         textYear = findViewById(R.id.text_year);
         textMouth = findViewById(R.id.text_mouth);
         textDay = findViewById(R.id.text_day);
 
-        textYear.setText(new SimpleDateFormat("yyyy").format(time));
-        textMouth.setText(new SimpleDateFormat("MM").format(time));
-        textDay.setText(new SimpleDateFormat("dd").format(time));
+        textYear.setText(String.valueOf(calendar.get(Calendar.YEAR)));
+        textMouth.setText(String.valueOf(calendar.get(Calendar.MONTH) + 1));
+        textDay.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
     }
 
 }
