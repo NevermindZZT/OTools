@@ -6,9 +6,17 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.letter.otools.util.AnniUtil;
+
+import org.litepal.LitePal;
+
+import java.util.List;
 
 /**
  * Implementation of App Widget functionality.
@@ -17,7 +25,7 @@ public class AnniversaryWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
-        freshWidget(context);
+        freshWidget(context, appWidgetManager, appWidgetId);
 
 //        // Construct the RemoteViews object
 //        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.anniversary_widget);
@@ -51,26 +59,58 @@ public class AnniversaryWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        freshWidget(context);
+        super.onReceive(context, intent);
+        AppWidgetManager manager = AppWidgetManager.getInstance(context);
+        List<WidgetInfo> widgetInfoList = LitePal.findAll(WidgetInfo.class);
+        if (widgetInfoList.size() == 0) {
+            return;
+        }
+        for (WidgetInfo widgetInfo : widgetInfoList) {
+            freshWidget(context, manager, widgetInfo.getWidgetId());
+        }
     }
 
-    private static void freshWidget (Context context) {
-        AppWidgetManager manager = AppWidgetManager.getInstance(context);
-        ComponentName componentName = new ComponentName(context, AnniversaryWidget.class);
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.anniversary_widget);
-        Anniversary anniversary = AnniUtil.getClosestAnni();
-        views.setTextViewText(R.id.anni_text, anniversary.getText());
-        views.setTextViewText(R.id.anni_date, anniversary.getDateText());
-        views.setTextViewText(R.id.anni_type, anniversary.getTypeText());
-        views.setTextViewText(R.id.anni_days, anniversary.getDaysText());
-        Intent intentAdd = new Intent(context, AddItemActivity.class);
-        PendingIntent pendingIntentAdd = PendingIntent.getActivity(context, 0, intentAdd, 0);
-        views.setOnClickPendingIntent(R.id.widget_add, pendingIntentAdd);
-        Intent intentItem =  new Intent(context, AnniversaryActivity.class);
-        intentItem.putExtra("anniId", anniversary.getId());
-        PendingIntent pendingIntentItem = PendingIntent.getActivity(context, 1, intentItem, PendingIntent.FLAG_CANCEL_CURRENT);
-        views.setOnClickPendingIntent(R.id.anni_widget_item, pendingIntentItem);
-        manager.updateAppWidget(componentName, views);
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
+        for (int appWidgetId : appWidgetIds) {
+            List<WidgetInfo> widgetInfoList = LitePal.where("widgetId = ?", String.valueOf(appWidgetId)).find(WidgetInfo.class);
+            for (WidgetInfo widgetInfo : widgetInfoList) {
+                LitePal.delete(WidgetInfo.class, widgetInfo.getAnniId());
+            }
+        }
+    }
+
+    private static void freshWidget(Context context, AppWidgetManager appWidgetManager, int widgetId) {
+        List<WidgetInfo> widgetInfoList = LitePal.where("widgetId = ?", String.valueOf(widgetId)).find(WidgetInfo.class);
+        if (widgetInfoList.size() != 0) {
+            for (WidgetInfo widgetInfo : widgetInfoList) {
+                if (widgetInfo != null) {
+                    Anniversary anniversary;
+                    RemoteViews views;
+                    if (widgetInfo.getType() == WidgetInfo.WIDGET_TYPE_CLOSEST) {
+                        anniversary = AnniUtil.getClosestAnni();
+                        views = new RemoteViews(context.getPackageName(), R.layout.anniversary_widget_closest);
+                        Intent intentAdd = new Intent(context, AddItemActivity.class);
+                        PendingIntent pendingIntentAdd = PendingIntent.getActivity(context, 0, intentAdd, 0);
+                        views.setOnClickPendingIntent(R.id.widget_add, pendingIntentAdd);
+                    } else {
+                        anniversary = LitePal.find(Anniversary.class, widgetInfo.getAnniId());
+                        views = new RemoteViews(context.getPackageName(), R.layout.anniversary_widget);
+                    }
+                    views.setTextViewText(R.id.anni_text, anniversary.getText());
+                    views.setTextViewText(R.id.anni_date, anniversary.getDateText());
+                    views.setTextViewText(R.id.anni_type, anniversary.getTypeText());
+                    views.setTextViewText(R.id.anni_days, anniversary.getDaysText());
+                    Intent intentItem = new Intent(context, AnniversaryActivity.class);
+                    intentItem.putExtra("anniId", anniversary.getId());
+                    PendingIntent pendingIntentItem = PendingIntent.getActivity(context, 1, intentItem, PendingIntent.FLAG_CANCEL_CURRENT);
+                    views.setOnClickPendingIntent(R.id.anni_widget_item, pendingIntentItem);
+                    appWidgetManager.updateAppWidget(widgetId, views);
+                }
+            }
+        }
+
     }
 
 }

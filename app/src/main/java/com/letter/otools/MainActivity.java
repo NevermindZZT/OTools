@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Intent broadIntent  = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
-        sendBroadcast(broadIntent);
+        getApplicationContext().sendBroadcast(broadIntent);
 
         if (AnniUtil.isNotifyServiceRunning(getApplicationContext()) != true) {
             startService(new Intent(this, NotifyService.class));

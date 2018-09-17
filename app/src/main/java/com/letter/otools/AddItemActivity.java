@@ -147,7 +147,7 @@ public class AddItemActivity extends AppCompatActivity {
                     anniversary.save();
                 }
                 Intent broadIntent  = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
-                sendBroadcast(broadIntent);
+                getApplicationContext().sendBroadcast(broadIntent);
                 Toast.makeText(AddItemActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
                 setResult(RESULT_OK, intent);
                 finish();
