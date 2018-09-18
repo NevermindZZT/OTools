@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
             createNotificationChannel(channelId, channelName, importance);
         }
 
-        Intent broadIntent  = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
-        getApplicationContext().sendBroadcast(broadIntent);
+//        Intent broadIntent  = new Intent("android.appwidget.action.APPWIDGET_UPDATE");
+//        getApplicationContext().sendBroadcast(broadIntent);
 
         if (AnniUtil.isNotifyServiceRunning(getApplicationContext()) != true) {
             startService(new Intent(this, NotifyService.class));

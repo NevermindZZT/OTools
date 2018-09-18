@@ -76,7 +76,7 @@ public class AnniversaryWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             List<WidgetInfo> widgetInfoList = LitePal.where("widgetId = ?", String.valueOf(appWidgetId)).find(WidgetInfo.class);
             for (WidgetInfo widgetInfo : widgetInfoList) {
-                LitePal.delete(WidgetInfo.class, widgetInfo.getAnniId());
+                LitePal.delete(WidgetInfo.class, widgetInfo.getId());
             }
         }
     }
