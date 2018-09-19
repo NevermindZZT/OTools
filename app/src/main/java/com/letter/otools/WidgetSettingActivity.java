@@ -20,6 +20,8 @@ public class WidgetSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setResult(RESULT_CANCELED);
+
         setContentView(R.layout.activity_widget_setting);
         Toolbar toolbar = findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
@@ -32,6 +34,11 @@ public class WidgetSettingActivity extends AppCompatActivity {
         Intent intent = getIntent();
         widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
+
+        if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            finish();
+            return;
+        }
 
         final List<Anniversary> anniversaryList = LitePal.findAll(Anniversary.class);
         Anniversary closestAnni = new Anniversary();

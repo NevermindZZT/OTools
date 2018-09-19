@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -17,6 +18,7 @@ import com.letter.otools.util.AnniUtil;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 public class NotifyService extends Service {
     public NotifyService() {
@@ -43,20 +45,36 @@ public class NotifyService extends Service {
                     for (Anniversary anni : anniversaryList) {
                         Intent intentItem =  new Intent(getApplicationContext(), AnniversaryActivity.class);
                         intentItem.putExtra("anniId", anni.getId());
-                        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intentItem, 0);
+                        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), new Random().nextInt(), intentItem, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                        Notification notification = new Notification.Builder(getApplicationContext(), "anni")
-                                .setContentTitle(anni.getTypeText())
-                                .setContentText(anni.getText() + "  日子到了哦")
-                                .setWhen(System.currentTimeMillis())
-                                .setSmallIcon(R.drawable.ic_notify)
-                                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon))
-                                .setContentIntent(pi)
-                                .setAutoCancel(true)
-                                .build();
 
-                        manager.notify(++id, notification);
-                        Log.d("Notify", anni.getText() + " - " + anni.getTypeText());
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            Notification notification = new Notification.Builder(getApplicationContext(), "anni")
+                                    .setContentTitle(anni.getTypeText())
+                                    .setContentText(anni.getText() + "  日子到了哦")
+                                    .setWhen(System.currentTimeMillis())
+                                    .setSmallIcon(R.drawable.ic_notify)
+                                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon))
+                                    .setContentIntent(pi)
+                                    .setAutoCancel(true)
+                                    .build();
+
+                            manager.notify(++id, notification);
+                            Log.d("Notify", anni.getText() + " - " + anni.getTypeText());
+                        } else {
+                            Notification notification = new Notification.Builder(getApplicationContext())
+                                    .setContentTitle(anni.getTypeText())
+                                    .setContentText(anni.getText() + "  日子到了哦")
+                                    .setWhen(System.currentTimeMillis())
+                                    .setSmallIcon(R.drawable.ic_notify)
+                                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.icon))
+                                    .setContentIntent(pi)
+                                    .setAutoCancel(true)
+                                    .build();
+
+                            manager.notify(++id, notification);
+                            Log.d("Notify", anni.getText() + " - " + anni.getTypeText());
+                        }
                     }
                 }
             }

@@ -17,6 +17,7 @@ import com.letter.otools.util.AnniUtil;
 import org.litepal.LitePal;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Implementation of App Widget functionality.
@@ -92,7 +93,7 @@ public class AnniversaryWidget extends AppWidgetProvider {
                         anniversary = AnniUtil.getClosestAnni();
                         views = new RemoteViews(context.getPackageName(), R.layout.anniversary_widget_closest);
                         Intent intentAdd = new Intent(context, AddItemActivity.class);
-                        PendingIntent pendingIntentAdd = PendingIntent.getActivity(context, 0, intentAdd, 0);
+                        PendingIntent pendingIntentAdd = PendingIntent.getActivity(context, new Random().nextInt(), intentAdd, 0);
                         views.setOnClickPendingIntent(R.id.widget_add, pendingIntentAdd);
                     } else {
                         anniversary = LitePal.find(Anniversary.class, widgetInfo.getAnniId());
@@ -104,7 +105,7 @@ public class AnniversaryWidget extends AppWidgetProvider {
                     views.setTextViewText(R.id.anni_days, anniversary.getDaysText());
                     Intent intentItem = new Intent(context, AnniversaryActivity.class);
                     intentItem.putExtra("anniId", anniversary.getId());
-                    PendingIntent pendingIntentItem = PendingIntent.getActivity(context, 1, intentItem, PendingIntent.FLAG_CANCEL_CURRENT);
+                    PendingIntent pendingIntentItem = PendingIntent.getActivity(context, new Random().nextInt(), intentItem, PendingIntent.FLAG_CANCEL_CURRENT);
                     views.setOnClickPendingIntent(R.id.anni_widget_item, pendingIntentItem);
                     appWidgetManager.updateAppWidget(widgetId, views);
                 }
