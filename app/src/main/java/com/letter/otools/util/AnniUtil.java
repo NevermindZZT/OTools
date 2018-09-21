@@ -2,7 +2,6 @@ package com.letter.otools.util;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.util.Log;
 
 import com.letter.otools.Anniversary;
 
@@ -22,7 +21,6 @@ public class AnniUtil {
         }
         closestAnni = anniversaryList.get(0);
         for (Anniversary anni : anniversaryList) {
-            Log.d("AnniUtil", String.valueOf(anni.getNextTime()));
             if ((anni.getNextTime() >= 0) &&
                     ((anni.getNextTime() < closestAnni.getNextTime()) || (closestAnni.getNextTime() < 0))) {
                 closestAnni = anni;
@@ -49,7 +47,6 @@ public class AnniUtil {
     public static boolean isNotifyServiceRunning(Context context) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            Log.d("Service", service.service.getClassName());
             if ("com.letter.otools.service.NotifyService".equals(service.service.getClassName())) {
                 return true;
             }

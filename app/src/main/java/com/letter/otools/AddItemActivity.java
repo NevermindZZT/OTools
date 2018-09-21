@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -142,6 +143,7 @@ public class AddItemActivity extends AppCompatActivity {
                 }
                 anniversary.setText(editText.getText().toString());
                 if (editType == ITEM_EDIT) {
+//                    anniversary.setTime(anniversary.getTime() + 1);       //可解决不能修改时间为当前日期的bug
                     anniversary.update(anniversary.getId());
                 } else {
                     anniversary.save();

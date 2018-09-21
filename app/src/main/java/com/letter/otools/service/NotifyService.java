@@ -45,6 +45,7 @@ public class NotifyService extends Service {
                     for (Anniversary anni : anniversaryList) {
                         Intent intentItem =  new Intent(getApplicationContext(), AnniversaryActivity.class);
                         intentItem.putExtra("anniId", anni.getId());
+                        intentItem.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), new Random().nextInt(), intentItem, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
