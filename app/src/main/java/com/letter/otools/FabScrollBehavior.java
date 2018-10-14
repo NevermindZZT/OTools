@@ -12,6 +12,7 @@ public class FabScrollBehavior extends FloatingActionButton.Behavior {
 
     public FabScrollBehavior (Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
+        this.setAutoHideEnabled(true);
     }
 
     @Override

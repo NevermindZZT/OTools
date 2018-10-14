@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 import org.litepal.LitePal;
@@ -25,6 +26,7 @@ public class WidgetSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_widget_setting);
         Toolbar toolbar = findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
+        this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
